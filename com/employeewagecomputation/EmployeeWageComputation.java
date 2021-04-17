@@ -2,69 +2,44 @@ package com.employeewagecomputation;
 
 public class EmployeeWageComputation
 {
-	/*
-	@description: program to calculate total wage of 
-	an employee for different companies
-	*/
+	// constants
+	public static final int IS_PART_TIME = 1;
+	public static final int IS_FULL_TIME = 2;
+	public static final int EMP_RATE_PER_HR = 20;
+	public static final int NUM_WORKING_DAY = 20;
+	public static final int MAX_HRS_IN_MONTH = 100;
 
-		public static final int IS_PART_TIME = 1;
-		public static final int IS_FULL_TIME = 2;	
-
-		private final String company;
-		private final int empRatePerHour;
-		private final int numOfWorkinDays;
-		private final int maxHoursPerMonth;
-		private int totalEmpWage;
-
-		public  EmployeeWageComputation(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
-		{
-			this.company = company;
-			this.empRatePerHour = empRatePerHour;
-			this.maxHoursPerMonth = maxHoursPerMonth;
-			this.numOfWorkinDays = numOfWorkingDays;
-		}
-
-		public void computeEmpWage()
-		{
-			//variables
-			int empHrs = 0 , totalEmpHours =0 , totalWorkingDays = 0;
-
-			//computation
-			while(totalEmpHours < maxHoursPerMonth && totalWorkingDays < numOfWorkinDays )
-			{
-				totalWorkingDays++;
-				int empCheck = (int) Math.floor(Math.random() * 10) % 3;
-
-				switch(empCheck)
-				{
-				case IS_PART_TIME:
-					empHrs = 4;
-					break;
-				case IS_FULL_TIME:
-					empHrs = 8;
-					break;
-				default:
-					empHrs = 0;
-				}
-				totalEmpHours += empHrs;
-				System.out.println("Day:: "+totalWorkingDays+ " Emp Hrs:: "+totalEmpHours);
+	// class method to get working hour of a employee for a day
+	public static int computingEmpWage() {
+		// variables
+		int empHrs = 0, totalEmpHrs = 0, totalWorkingDay = 0;
+		// computation
+		while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDay < NUM_WORKING_DAY) {
+			totalWorkingDay++;
+			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+			// checking how much employee has worked daily
+			switch (empCheck) {
+			case IS_PART_TIME:
+				empHrs = 4;
+				break;
+			case IS_FULL_TIME:
+				empHrs = 8;
+				break;
+			default:
+				empHrs = 0;
 			}
-			
-			totalEmpWage = totalEmpHours * empRatePerHour;
+			// adding daily empHrs to get total Working hour he has worked
+			totalEmpHrs += empHrs;
+			System.out.println("Day#:" + totalWorkingDay + " Emp Hr: " + empHrs);
 		}
-
-		public String toString()
-		{
-			return "Total wage for company "+ company+ " is " + totalEmpWage;
-		}
-		
-		public static void main(String[] args) 
-		{
-			 EmployeeWageComputation dMart = new  EmployeeWageComputation("Dmart" , 20, 2, 10);
-			 EmployeeWageComputation reliance = new  EmployeeWageComputation("Reliance" , 10, 4, 20);
-			dMart.computeEmpWage();
-			System.out.println(dMart);
-			reliance.computeEmpWage();
-			System.out.println(reliance);
-		}
+		// total salary of employee
+		int totalEmpWage = totalEmpHrs * EMP_RATE_PER_HR;
+		System.out.println("Total Emp Wage: " + totalEmpWage);
+		return totalEmpWage;
 	}
+
+	public static void main(String[] args) {
+		computingEmpWage();
+
+	}
+}
